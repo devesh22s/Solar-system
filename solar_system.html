@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar System</title>
+    <style>
+        /* General styles*/
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #03182a; 
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff;
+            /* position: relative; */
+        }
+        /* Container styles*/
+        .container {
+            width: 90vw; 
+            height: 90vw;
+            max-width: 800px;
+            max-height: 800px;
+            position: relative;
+            perspective: 1000px;
+        }
+        /* Sun styles*/
+        .sun {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ffce00, #ff9000);
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.5), 0 0 100px rgba(255, 255, 255, 0.3);
+            z-index: 2;
+            animation: pulsate 5s ease-in-out infinite alternate;
+        }
+        @keyframes pulsate {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.1);
+            }
+        }
+        /* Define orbit animation for planets*/
+        .planet {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            /* z-index: 1; */
+            transform-style: preserve-3d;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.5), 0 0 100px rgba(255, 255, 255, 0.3);
+            z-index: 2;
+        }
+        /* Earth styles */
+        .earth {
+            top: 50%;
+            left: 25%;
+            background: linear-gradient(to bottom, #1c6b96, #67a8cc);
+            background-size: cover;
+            animation: orbit-earth 10s linear infinite, rotate-earth 20s linear infinite;
+            
+        }
+        @keyframes orbit-earth {
+            to {
+                transform: rotateY(360deg) translateX(150px) translateY(100px) rotateY(-360deg);
+            }
+        }
+        @keyframes rotate-earth {
+            to {
+                transform: rotateZ(360deg);
+            }
+        }
+        /* Moon styles */
+        .moon {
+            top: 50%;
+            left: 20%;
+            width: 10px;
+            height: 10px;
+            background-color: #aaaaaa; 
+            animation: orbit-moon 5s linear infinite;
+        }
+        @keyframes orbit-moon {
+            to {
+                transform: rotateY(360deg);
+            }
+        }
+        /* Mercury styles */
+        .mercury {
+            top: 45%;
+            left: 17%;
+            background: linear-gradient(to bottom, #ff6600b4, #cc3300); 
+            background-size: cover;
+            animation: orbit-mercury 7s linear infinite, rotate-mercury 15s linear infinite;
+            
+        }
+        @keyframes orbit-mercury {
+            to {
+                transform: rotateY(360deg) translateX(80px) translateY(50px) rotateY(-360deg);
+            }
+        }
+        @keyframes rotate-mercury {
+            to {
+                transform: rotateX(360deg);
+            }
+        }
+        /* Venus styles */
+        .venus {
+            top: 52%;
+            left: 21%;
+            background: linear-gradient(to bottom, #ffeecc, #ffcc99); 
+            background-size: cover;
+            animation: orbit-venus 8s linear infinite, rotate-venus 18s linear infinite;
+        }
+        @keyframes orbit-venus {
+            to {
+                transform: rotateY(360deg) translateX(120px) translateY(70px) rotateY(-360deg);
+            }
+        }
+        @keyframes rotate-venus {
+            to {
+                transform: rotateZ(360deg);
+            }
+        }
+        /* Mars styles */
+        .mars {
+            top: 42%;
+            left: 30%;
+            background-size: cover;
+            background: linear-gradient(to bottom, #3f1a01, #742409); 
+            animation: orbit-mars 9s linear infinite, rotate-mars 22s linear infinite;
+        }
+        @keyframes orbit-mars {
+            to {
+                transform: rotateY(360deg) translateX(180px) translateY(120px) rotateY(-360deg);
+            }
+        }
+        @keyframes rotate-mars {
+            to {
+                transform: rotateX(360deg);
+            }
+        }
+        /* Jupiter styles */
+        .jupiter {
+            top: 55%;
+            left: 34%;
+            background: linear-gradient(to bottom, #3b2f01, #cc9900);
+            background-size: cover;
+            animation: orbit-jupiter 15s linear infinite, rotate-jupiter 25s linear infinite;
+        }
+        @keyframes orbit-jupiter {
+            to {
+                transform: rotateY(360deg) translateX(240px) translateY(160px) rotateY(-360deg);
+            }
+        }
+        @keyframes rotate-jupiter {
+            to {
+                transform: rotateZ(360deg);
+            }
+        }
+        /* Saturn styles */
+        .saturn {
+            top: 48%;
+            left: 40%;
+            
+            background: linear-gradient(to bottom, #fbeea4, #685e35);background-size: cover;
+            animation: orbit-saturn 18s linear infinite, rotate-saturn 30s linear infinite;
+        }
+        @keyframes orbit-saturn {
+            to {
+                transform: rotateY(360deg) translateX(280px) translateY(200px) rotateY(-360deg);
+            }
+        }
+        @keyframes rotate-saturn {
+            to {
+                transform: rotateX(360deg);
+            }
+        }
+        /* Uranus styles */
+        .uranus {
+            top: 46%;
+            left: 44%;
+            
+            background: linear-gradient(to bottom, #99ccff, #6699ff);
+            background-size: cover;
+            animation: orbit-uranus 12s linear infinite, rotate-uranus 28s linear infinite;
+        }
+        @keyframes orbit-uranus {
+            to {
+                transform: rotateY(360deg) translateX(320px) translateY(240px) rotateY(-360deg);
+            }
+        }
+        @keyframes rotate-uranus {
+            to {
+                transform: rotateZ(360deg);
+            }
+        }
+        /* Neptune styles */
+        .neptune {
+            top: 51%;
+            left: 46%;
+            background: linear-gradient(to bottom, #3366ff, #0000ff);
+            background-size: cover;
+            animation: orbit-neptune 14s linear infinite, rotate-neptune 24s linear infinite;
+        }
+        @keyframes orbit-neptune {
+            to {
+                transform: rotateY(360deg) translateX(360px) translateY(280px) rotateY(-360deg);
+            }
+        }
+        @keyframes rotate-neptune {
+            to {
+                transform: rotateX(360deg);
+            }
+        }
+        /* Additional animation for twinkling stars*/
+        @keyframes twinkling {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        /* Twinkling stars*/
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            animation: twinkling 3s infinite;
+        }
+        @keyframes twinkling {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        /* Text animation */
+        .text {
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 3s ease forwards;
+            animation-delay: 1s; /* Delay the animation */
+        }
+        /* Header text animation */
+        .text h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            animation: slideInDown 2s ease forwards;
+        }
+        /* Paragraph text animation */
+        .text p {
+            font-size: 18px;
+            animation: slideInUp 2s ease forwards;
+            animation: fadeIn 3s ease forwards, moveIn 2s ease forwards, colorChange 5s infinite alternate;
+        }
+        /* Footer text animation */
+        .text p:last-child {
+            font-size: 16px;
+            animation: slideInUp 2s ease forwards;
+        }
+        /* Keyframes for animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        @keyframes slideInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        
+        @keyframes colorChange {
+            from {
+                color: #ffffff; /* Start color */
+            }
+            to {
+                color: #ff0000; /* End color */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Solar System Container-->
+    <div class="container">
+        <!-- Sun-->
+        <div class="sun"></div>
+        <!-- Planets-->
+        <div class="planet earth" data-content="The Earth is the third planet from the Sun and the only astronomical object known to harbor life."></div>
+        <div class="planet moon" data-content="The Moon is Earth's only natural satellite."></div>
+        <div class="planet mercury" data-content="Mercury is the smallest and innermost planet in the Solar System."></div>
+        <div class="planet venus" data-content="Venus is the second planet from the Sun."></div>
+        <div class="planet mars" data-content="Mars is the fourth planet from the Sun and the second-smallest planet in the Solar System."></div>
+        <div class="planet jupiter" data-content="Jupiter is the fifth planet from the Sun and the largest in the Solar System."></div>
+        <div class="planet saturn" data-content="Saturn is the sixth planet from the Sun and the second-largest in the Solar System."></div>
+        <div class="planet uranus" data-content="Uranus is the seventh planet from the Sun."></div>
+        <div class="planet neptune" data-content="Neptune is the eighth and farthest known Solar planet from the Sun."></div>
+    </div>
+    <!-- Twinkling stars-->
+    <div class="stars">
+        <!-- Generate stars dynamically with JavaScript-->
+    </div>
+    <!-- Text-->
+    <div class="text">
+        <h1>Solar System</h1>
+        <h4>Explore the wonders of our solar system!</h4>
+        <p class="name">Created by Devesh</p>
+       <div><h5>Earth -> The Earth is the third planet from the Sun and the only astronomical object known to harbor life.</h5>
+        <h5>Moon -> The Moon is Earth's only natural satellite.</h5></div>
+    </div>
+    <!-- JavaScript to generate twinkling stars-->
+    <script>
+        const starsContainer = document.querySelector('.stars');
+        const numStars = 200;
+        for (let i = 0; i < numStars; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.top = Math.random() * 100 + '%';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+
+        // Tooltip functionality
+        const planets = document.querySelectorAll('.planet');
+
+        planets.forEach(planet => {
+            planet.addEventListener('mouseenter', () => {
+                const content = planet.dataset.content;
+                const tooltip = document.createElement('div');
+                tooltip.classList.add('tooltip');
+                tooltip.textContent = content;
+                planet.appendChild(tooltip);
+            });
+
+            planet.addEventListener('mouseleave', () => {
+                const tooltip = planet.querySelector('.tooltip');
+                if (tooltip) {
+                    tooltip.remove();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
